@@ -1,0 +1,46 @@
+body {
+    background: linear-gradient(30deg, rgb(77, 77, 77), rgb(55,55,55));
+}
+
+header {
+    position: static;
+}
+
+main ul {
+    width: 800px;
+    margin: 0 auto;
+}
+
+main li {
+    display: flex;
+    background-color: white;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+main li img {
+    width: 300px;
+    height: 280px;
+    object-fit: cover;
+}
+
+.item-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+a {
+    width: 100px;
+    text-decoration: none;
+    display:flex;
+    flex-direction: row-reverse;
+    color: rgb(33, 210, 210);
+    font-weight: bold;
+}
+
+a:hover {
+    background-color: aqua;
+}
