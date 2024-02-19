@@ -6,6 +6,28 @@ body {
     margin: 0;
 }
 
+.nav-container {
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 98, 124);
+}
+
+.nav-container h1 {
+    flex-grow: 3;
+    margin: 20px;
+    font-size: 40px;
+    color: white;
+}
+
+.nav-container a {
+    text-decoration-line: none;
+    margin: 15px;
+    font-size: 30px;
+    font-weight: 400;
+    color: white;
+    
+}
+
 .main-background {
     width: 100%;
     height: 500px;
@@ -58,4 +80,16 @@ body {
     font-size: 20px;
     border: 2px solid black;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-title {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-title {
+        font-size: 20px;
+    }
 }
