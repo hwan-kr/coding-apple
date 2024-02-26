@@ -1,0 +1,68 @@
+body {
+    background-color: rgb(30, 30, 30);
+}
+
+main {
+    text-align: center;
+}
+
+main h1 {
+    color: orange;
+}
+
+main h2 {
+    color: orange;
+    background-color: bisque;
+    margin: 20px;
+}
+
+#main-logo {
+    text-decoration: none;
+    color: orange;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(40, 40, 40);
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    text-decoration: none;
+    padding: 4px 8px;
+    color: orange;
+    font-size: 20px; 
+    margin: 10px;  
+}
+
+.nav:hover {
+    background-color: orange;
+    border-radius: 8px;
+    color: rgb(40, 40, 40);
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.Cart {
+    text-decoration: none;
+    color: aliceblue;
+    
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    margin: 0 300px;
+}
