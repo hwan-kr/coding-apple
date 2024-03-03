@@ -28,6 +28,9 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <span class="navbar-brand">Navbar</span>
+                <span id="theme-color" class="badge bg-dark ms-auto mx-3"
+                    >Dark 🔄</span
+                >
                 <button class="navbar-toggler show" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -44,6 +47,17 @@
         <button id="test-btn">버튼</button>
 
         <script>
+            const themeColor = document.getElementById("theme-color");
+            let count = 0;
+            themeColor.addEventListener("click", function () {
+                count++;
+                if (count % 2 == 1) {
+                    themeColor.textContent = "Light 🔄";
+                } else {
+                    themeColor.textContent = "Dark 🔄";
+                }
+            });
+
             $("#test-btn").on("click", function () {
                 $(".black-bg").css("display", "block");
             });

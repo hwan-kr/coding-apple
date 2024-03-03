@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <p>태조 이성계가 태어난 년도는?</p>
+        <input type="text" id="answer" />
+        <button id="send-answer">제출</button>
+
+        <script>
+            const answer = 1335;
+            const userInput = document.getElementById("answer").value;
+            const sendButton = document.getElementById("send-answer");
+            let count = 0;
+
+            function isUserCorrect() {
+                const userInput = document.getElementById("answer").value;
+
+                console.log(userInput);
+                if (userInput == 1335) {
+                    alert("성공");
+                } else if (count == 2) {
+                    alert("멍청이");
+                } else {
+                    count++;
+                }
+            }
+
+            sendButton.addEventListener("click", isUserCorrect);
+        </script>
+    </body>
+</html>
