@@ -21,9 +21,30 @@
         <div class="black-bg">
             <div class="white-bg">
                 <h4>로그인하세요</h4>
-                <button class="btn btn-danger" id="close">닫기</button>
+                <label for="password">비밀번호</label>
+                <input type="text" id="password" />
+                <button class="submitBtn">전송</button>
+
+                <button type="submit" class="btn btn-danger" id="close">
+                    닫기
+                </button>
             </div>
         </div>
+
+        <script>
+            const passwordElement = document.getElementById("password");
+            const submitBtnElement = document.querySelector(".submitBtn");
+
+            function isPasswordCorrect() {
+                console.log(passwordElement.value);
+                if (!/[A-Z]/.test(passwordElement.value)) {
+                    alert("Entered valid password");
+                } else {
+                }
+            }
+
+            submitBtnElement.addEventListener("click", isPasswordCorrect);
+        </script>
 
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
@@ -36,6 +57,30 @@
                 </button>
             </div>
         </nav>
+
+        <div id="countAlert" class="alert alert-danger">
+            <span id="sec">5</span>초 이내 구매시 사은품 증정!
+        </div>
+
+        <script>
+            // 1초마다 5라는 문자 1씩 감소.
+            const secElement = document.getElementById("sec");
+            const alertELement = document.getElementById("countAlert");
+            let initialNum = parseInt(secElement.textContent);
+            function countDown() {
+                if (initialNum > 0) {
+                    initialNum--;
+                    secElement.textContent = initialNum;
+                } else {
+                    alertELement.style.display = "none";
+                }
+            }
+
+            /[a-zA-Z]/.test("abcd");
+
+            setInterval(countDown, 1000);
+        </script>
+
         <ul class="list-group">
             <li class="list-group-item">An item</li>
             <li class="list-group-item">A second item</li>
@@ -67,7 +112,7 @@
             });
 
             document
-                .querySelector(".navbar-toggler")[0]
+                .querySelector(".navbar-toggler")
                 .addEventListener("click", function () {
                     document
                         .querySelector("list-group")[0]
