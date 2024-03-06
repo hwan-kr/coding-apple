@@ -30,7 +30,7 @@ $(".list").click(function (e) {
 
 // Array 와 Object 자료형
 let car = ["소나타", 50000, "white"];
-let car2 = { name: "소나타", price: 50000 };
+let car2 = { name: "소나타", price: [50000, 3000, 4000] };
 
 document.getElementById("product").textContent = car2.name;
-document.getElementById("price").textContent = car2.price;
+document.getElementById("price").textContent = car2.price[0];
