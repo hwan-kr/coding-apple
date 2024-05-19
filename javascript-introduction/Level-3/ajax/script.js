@@ -34,9 +34,28 @@ function handleBuyClick(event) {
     updateCart(productName);
 }
 
+// 특정 조건으로 객체를 찾는 함수 정의
+function findIndexByName(productName) {
+    return products.findIndex(function (product) {
+        return product.title == title; // name 속성이 주어진 값과 일치하는지 확인
+    });
+}
+
 function updateCart(productName) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(productName);
+    let productIndex = findIndexByName(productName);
+    let count = 1;
+    if (
+        cart.forEach(function (item, index) {
+            item.title == productName;
+        })
+    ) {
+        console.log(productIndex);
+        cart[productIndex].count = count + 1;
+        cart.console.log("이미 있음");
+    } else {
+        cart.push({ title: `${productName}`, num: `${count}` });
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("카트 업데이트:", cart);
 }
