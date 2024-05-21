@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
+const { MongoClient } = require("mongodb");
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
-
-const { MongoClient } = require("mongodb");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let db;
 const url =
@@ -18,6 +19,7 @@ new MongoClient(url)
     .catch((err) => {
         console.log(err);
     });
+
 app.listen(8080, () => {
     console.log("https://localhost:8080 에서 서버 실행중");
 });
@@ -46,4 +48,16 @@ app.get("/shop", (요청, 응답) => {
 app.get("/time", (요청, 응답) => {
     let currentTime = new Date();
     응답.render("time.ejs", { time: currentTime });
+});
+
+app.get("/write", (요청, 응답) => {
+    응답.render("write.ejs");
+});
+
+app.post("/add", (요청, 응답) => {
+    console.log(요청.body);
+    db.collection("post").insertOne({
+        title: 요청.body.title,
+        content: 요청.body.content,
+    });
 });
