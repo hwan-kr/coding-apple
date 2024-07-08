@@ -2,29 +2,27 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-// useEffect(() => {
-//     setTimeout(() => {}, 2000);
-// });
-
 let Box = styled.div`
     background: #fff2cc;
-    display: ${(props) => props.dis};
 `;
 
 function Detail(props) {
     let { id } = useParams();
     let item = props.shoes.find((x) => x.id == id);
-    let [display, setDisplay] = useState("block");
+    let [alert, setAlert] = useState(true);
 
     useEffect(() => {
-        let timer = setTimeout(() => {
-            setDisplay("none");
+        let a = setTimeout(() => {
+            setAlert(false);
         }, 2000);
-        return () => clearTimeout(timer);
-    });
+        return () => {
+            clearTimeout(a);
+        };
+    }, []);
+
     return (
         <div className="container">
-            <Box dis={display}>2초 후 박스 사라짐.</Box>
+            {alert == true ? <Box>2초 후 박스 사라짐.</Box> : null}
             <div className="row">
                 <div className="col-md-6">
                     <img
@@ -32,6 +30,7 @@ function Detail(props) {
                         width="100%"
                     />
                 </div>
+                <input></input>
                 <div className="col-md-6">
                     <h4 className="pt-5">{item.title}</h4>
                     <p>{item.content}</p>
