@@ -10,13 +10,19 @@ import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 function App() {
-    let [shoes] = useState(data);
+    let [shoes, setShoes] = useState(data);
     let navigate = useNavigate();
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
                 <Container>
-                    <Navbar.Brand href="#home">Shoeshop</Navbar.Brand>
+                    <Navbar.Brand
+                        onClick={() => {
+                            navigate("/");
+                        }}
+                    >
+                        Shoeshop
+                    </Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
                         <Nav.Link
@@ -45,10 +51,10 @@ function App() {
                     }
                 />
                 <Route
-                    path="/detail"
+                    path="/detail/:id"
                     element={
                         <div>
-                            <Detail></Detail>
+                            <Detail shoes={shoes}></Detail>
                         </div>
                     }
                 />
