@@ -1,25 +1,30 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-let YellowBtn = styled.button`
-    background: yellow;
-    color: black;
-    padding: 10px;
-`;
+// useEffect(() => {
+//     setTimeout(() => {}, 2000);
+// });
 
 let Box = styled.div`
-    background: grey;
-    padding: 20px;
+    background: #fff2cc;
+    display: ${(props) => props.dis};
 `;
 
 function Detail(props) {
     let { id } = useParams();
     let item = props.shoes.find((x) => x.id == id);
+    let [display, setDisplay] = useState("block");
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setDisplay("none");
+        }, 2000);
+        return () => clearTimeout(timer);
+    });
     return (
         <div className="container">
-            <Box>
-                <YellowBtn>버튼</YellowBtn>
-            </Box>
+            <Box dis={display}>2초 후 박스 사라짐.</Box>
             <div className="row">
                 <div className="col-md-6">
                     <img

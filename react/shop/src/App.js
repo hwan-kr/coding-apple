@@ -10,8 +10,8 @@ import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 function App() {
-    let [shoes, setShoes] = useState(data);
     let navigate = useNavigate();
+    let [shoes, setShoes] = useState(data);
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
