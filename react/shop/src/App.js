@@ -5,11 +5,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
-import Detail from "./detail.js";
-import { Routes, Route, Link } from "react-router-dom";
+import Detail from "./routes/detail.js";
+import Event from "./routes/event.js";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 function App() {
     let [shoes] = useState(data);
+    let navigate = useNavigate();
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
@@ -17,18 +19,16 @@ function App() {
                     <Navbar.Brand href="#home">Shoeshop</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
+                        <Nav.Link
+                            onClick={() => {
+                                navigate("/detail");
+                            }}
+                        >
+                            Detail
+                        </Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
-
-            <Link className="link" to="/">
-                홈
-            </Link>
-            <Link className="link" to="/detail">
-                상세페이지
-            </Link>
 
             <Routes>
                 <Route
@@ -52,6 +52,17 @@ function App() {
                         </div>
                     }
                 />
+                <Route />
+                <Route path="/event" element={<Event></Event>}>
+                    <Route
+                        path="one"
+                        element={<p>첫 주문시 양배추즙 서비스</p>}
+                    ></Route>
+                    <Route
+                        path="two"
+                        element={<p>생일 기념쿠폰 받기</p>}
+                    ></Route>
+                </Route>
             </Routes>
 
             {/* <div className="container"></div> */}

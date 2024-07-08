@@ -15,21 +15,6 @@
 }
 
 
-.link {
-  margin: 5px;
-  padding: 5px;
-  text-decoration-line: none;
-  background-color: gray;
-  color: rgb(215, 215, 215);
-  font-size: large;
-  font-weight: bold;
-  border-radius: 4px;
-}
-
-.link:hover {
-  background-color: #282c34;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
