@@ -13,6 +13,8 @@ import axios from "axios";
 function App() {
     let navigate = useNavigate();
     let [shoes, setShoes] = useState(data);
+    let [count, setCount] = useState(0);
+    let [alert, setAlert] = useState(false);
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
@@ -50,23 +52,48 @@ function App() {
                             </Container>
                             <button
                                 onClick={() => {
-                                    axios
-                                        .get(
-                                            "https://codingapple1.github.io/shop/data2.json"
-                                        )
-                                        .then((result) => {
-                                            let combinedArray = shoes.concat(
-                                                result.data
-                                            );
-                                            setShoes(combinedArray);
-                                        })
-                                        .catch(() => {
-                                            console.log("실패");
-                                        });
+                                    setAlert(true);
+                                    if (count == 0) {
+                                        axios
+                                            .get(
+                                                "https://codingapple1.github.io/shop/data2.json"
+                                            )
+                                            .then((result) => {
+                                                let combinedArray =
+                                                    shoes.concat(result.data);
+                                                setShoes(combinedArray);
+                                                setCount(1);
+                                                setAlert(false);
+                                            })
+                                            .catch(() => {
+                                                setAlert(false);
+                                                console.log("실패");
+                                            });
+                                    } else if (count == 1) {
+                                        axios
+                                            .get(
+                                                "https://codingapple1.github.io/shop/data3.json"
+                                            )
+                                            .then((result) => {
+                                                let combinedArray =
+                                                    shoes.concat(result.data);
+                                                setShoes(combinedArray);
+                                                setCount(2);
+                                                setAlert(false);
+                                            })
+                                            .catch(() => {
+                                                console.log("실패");
+                                                setAlert(false);
+                                            });
+                                    } else {
+                                        console.log("더 이상 상품이 없습니다");
+                                        setAlert(false);
+                                    }
                                 }}
                             >
                                 버튼
                             </button>
+                            {alert == true ? <Loading></Loading> : null}
                         </>
                     }
                 />
@@ -114,5 +141,9 @@ function ItemBox(props) {
             // </div>
         );
     });
+}
+
+function Loading() {
+    return <p>로딩중입니다..</p>;
 }
 export default App;
