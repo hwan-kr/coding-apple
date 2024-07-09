@@ -8,6 +8,7 @@ import data from "./data.js";
 import Detail from "./routes/detail.js";
 import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import axios from "axios";
 
 function App() {
     let navigate = useNavigate();
@@ -47,6 +48,25 @@ function App() {
                                     <ItemBox shoes={shoes}></ItemBox>
                                 </Row>
                             </Container>
+                            <button
+                                onClick={() => {
+                                    axios
+                                        .get(
+                                            "https://codingapple1.github.io/shop/data2.json"
+                                        )
+                                        .then((result) => {
+                                            let combinedArray = shoes.concat(
+                                                result.data
+                                            );
+                                            setShoes(combinedArray);
+                                        })
+                                        .catch(() => {
+                                            console.log("실패");
+                                        });
+                                }}
+                            >
+                                버튼
+                            </button>
                         </>
                     }
                 />
