@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
 let Box = styled.div`
     background: #fff2cc;
 `;
@@ -11,6 +12,8 @@ function Detail(props) {
     let item = props.shoes.find((x) => x.id == id);
     let [alert, setAlert] = useState(true);
     let [value, setValue] = useState("");
+    let [tab, setTab] = useState(0);
+
     useEffect(() => {
         let a = setTimeout(() => {
             setAlert(false);
@@ -36,11 +39,11 @@ function Detail(props) {
                         width="100%"
                     />
                 </div>
-                <input
+                {/* <input
                     onChange={(e) => {
                         setValue(e.target.value);
                     }}
-                ></input>
+                ></input> */}
                 <div className="col-md-6">
                     <h4 className="pt-5">{item.title}</h4>
                     <p>{item.content}</p>
@@ -48,8 +51,54 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button>
                 </div>
             </div>
+            <Nav variant="tabs" defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link
+                        onClick={() => {
+                            setTab(0);
+                        }}
+                        eventKey="link0"
+                    >
+                        버튼0
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link
+                        onClick={() => {
+                            setTab(1);
+                        }}
+                        eventKey="link1"
+                    >
+                        버튼1
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link
+                        onClick={() => {
+                            setTab(2);
+                        }}
+                        eventKey="link2"
+                    >
+                        버튼2
+                    </Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <TabContent tab={tab} />
         </div>
     );
+}
+
+function TabContent({ tab }) {
+    // if (props.tab == 0) {
+    //     return <div>내용0</div>;
+    // }
+    // if (props.tab == 1) {
+    //     return <div>내용1</div>;
+    // }
+    // if (props.tab == 2) {
+    //     return <div>내용2</div>;
+    // }
+    return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
 }
 
 export default Detail;
