@@ -10,7 +10,7 @@ function Detail(props) {
     let { id } = useParams();
     let item = props.shoes.find((x) => x.id == id);
     let [alert, setAlert] = useState(true);
-
+    let [value, setValue] = useState("");
     useEffect(() => {
         let a = setTimeout(() => {
             setAlert(false);
@@ -19,6 +19,12 @@ function Detail(props) {
             clearTimeout(a);
         };
     }, []);
+
+    useEffect(() => {
+        if (isNaN(value) == true) {
+            console.log("숫자를 입력하세요");
+        }
+    }, [value]);
 
     return (
         <div className="container">
@@ -30,7 +36,11 @@ function Detail(props) {
                         width="100%"
                     />
                 </div>
-                <input></input>
+                <input
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                    }}
+                ></input>
                 <div className="col-md-6">
                     <h4 className="pt-5">{item.title}</h4>
                     <p>{item.content}</p>
