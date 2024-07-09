@@ -30,7 +30,7 @@ function App() {
                         <Nav.Link href="#home">Home</Nav.Link>
                         <Nav.Link
                             onClick={() => {
-                                navigate("/detail");
+                                navigate("/detail/1");
                             }}
                         >
                             Detail

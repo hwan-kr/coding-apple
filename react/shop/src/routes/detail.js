@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./../App.css";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +14,7 @@ function Detail(props) {
     let [alert, setAlert] = useState(true);
     let [value, setValue] = useState("");
     let [tab, setTab] = useState(0);
+    let [fade1, setFade1] = useState("");
 
     useEffect(() => {
         let a = setTimeout(() => {
@@ -29,8 +31,18 @@ function Detail(props) {
         }
     }, [value]);
 
+    useEffect(() => {
+        let a = setTimeout(() => {
+            setFade1("end");
+        }, 10);
+        return () => {
+            clearTimeout(a);
+            setFade1("");
+        };
+    }, []);
+
     return (
-        <div className="container">
+        <div className={`container start ${fade1}`}>
             {alert == true ? <Box>2초 후 박스 사라짐.</Box> : null}
             <div className="row">
                 <div className="col-md-6">
@@ -98,7 +110,22 @@ function TabContent({ tab }) {
     // if (props.tab == 2) {
     //     return <div>내용2</div>;
     // }
-    return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
+    let [fade, setFade] = useState("");
+    useEffect(() => {
+        let a = setTimeout(() => {
+            setFade("end");
+        }, 10);
+        return () => {
+            clearTimeout(a);
+            setFade("");
+        };
+    }, [tab]);
+    return (
+        <div className={`start ${fade}`}>
+            {" "}
+            {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+        </div>
+    );
 }
 
 export default Detail;
