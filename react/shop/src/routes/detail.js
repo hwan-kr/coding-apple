@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./../App.css";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
+import { Context1 } from "../App";
+
 let Box = styled.div`
     background: #fff2cc;
 `;
 
 function Detail(props) {
+    let { 재고 } = useContext(Context1);
+
     let { id } = useParams();
     let item = props.shoes.find((x) => x.id == id);
     let [alert, setAlert] = useState(true);
@@ -111,6 +115,7 @@ function TabContent({ tab }) {
     //     return <div>내용2</div>;
     // }
     let [fade, setFade] = useState("");
+    let { 재고 } = useContext(Context1);
     useEffect(() => {
         let a = setTimeout(() => {
             setFade("end");

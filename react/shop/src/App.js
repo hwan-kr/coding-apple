@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { useState } from "react";
+import { createContext, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
 import "./App.css";
@@ -10,11 +10,14 @@ import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
 
+export let Context1 = createContext();
+
 function App() {
     let navigate = useNavigate();
     let [shoes, setShoes] = useState(data);
     let [count, setCount] = useState(0);
     let [alert, setAlert] = useState(false);
+    let [재고] = useState([10, 11, 12]);
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
@@ -100,9 +103,9 @@ function App() {
                 <Route
                     path="/detail/:id"
                     element={
-                        <div>
+                        <Context1.Provider value={{ 재고, shoes }}>
                             <Detail shoes={shoes}></Detail>
-                        </div>
+                        </Context1.Provider>
                     }
                 />
                 <Route />
