@@ -39,6 +39,15 @@ function App() {
                         >
                             Detail
                         </Nav.Link>
+                        <Nav.Link
+                            onClick={() => {
+                                {
+                                    navigate("/cart");
+                                }
+                            }}
+                        >
+                            Cart
+                        </Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
@@ -131,6 +140,7 @@ function App() {
 }
 
 function ItemBox(props) {
+    let navigate = useNavigate();
     let [shoesImg, setShoesImg] = useState([
         "https://codingapple1.github.io/shop/shoes1.jpg",
         "https://codingapple1.github.io/shop/shoes2.jpg",
@@ -139,7 +149,13 @@ function ItemBox(props) {
     return props.shoes.map(function (a, i) {
         return (
             <Col md={4}>
-                <img src={shoesImg[i]} width="80%"></img>
+                <img
+                    src={shoesImg[i]}
+                    width="80%"
+                    onClick={() => {
+                        navigate(`/detail/${i}`);
+                    }}
+                ></img>
                 <h4>{props.shoes[i].title}</h4>
                 <p>{props.shoes[i].content}</p>
                 <p>{props.shoes[i].price}원</p>

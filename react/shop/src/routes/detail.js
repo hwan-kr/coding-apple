@@ -5,12 +5,17 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
 import { Context1 } from "../App";
+import { useDispatch, useSelector } from "react-redux";
+import { cartUpdate } from "../store.js";
 
 let Box = styled.div`
     background: #fff2cc;
 `;
 
 function Detail(props) {
+    let state = useSelector((state) => state);
+    let dispatch = useDispatch();
+
     let { 재고 } = useContext(Context1);
 
     let { id } = useParams();
@@ -64,7 +69,15 @@ function Detail(props) {
                     <h4 className="pt-5">{item.title}</h4>
                     <p>{item.content}</p>
                     <p>{item.price}</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                            dispatch(cartUpdate(item));
+                            console.log(state.cart);
+                        }}
+                    >
+                        주문하기
+                    </button>
                 </div>
             </div>
             <Nav variant="tabs" defaultActiveKey="link0">
