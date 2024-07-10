@@ -9,6 +9,7 @@ import Detail from "./routes/detail.js";
 import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
+import Cart from "./routes/cart.js";
 
 export let Context1 = createContext();
 
@@ -109,6 +110,9 @@ function App() {
                     }
                 />
                 <Route />
+
+                <Route path="/cart" element={<Cart></Cart>} />
+
                 <Route path="/event" element={<Event></Event>}>
                     <Route
                         path="one"
