@@ -15,16 +15,15 @@ let Box = styled.div`
 function Detail(props) {
     let state = useSelector((state) => state);
     let dispatch = useDispatch();
-
     let { 재고 } = useContext(Context1);
 
     let { id } = useParams();
+    let imageIndex = parseInt(id, 10);
     let item = props.shoes.find((x) => x.id == id);
     let [alert, setAlert] = useState(true);
     let [value, setValue] = useState("");
     let [tab, setTab] = useState(0);
     let [fade1, setFade1] = useState("");
-
     useEffect(() => {
         let a = setTimeout(() => {
             setAlert(false);
@@ -50,13 +49,23 @@ function Detail(props) {
         };
     }, []);
 
+    useEffect(() => {
+        let watchedArray = JSON.parse(localStorage.getItem("watched"));
+        console.log(watchedArray);
+        watchedArray.push(id);
+        let setArray = [...new Set(watchedArray)];
+        localStorage.setItem("watched", JSON.stringify(setArray));
+    }, []);
+
     return (
         <div className={`container start ${fade1}`}>
             {alert == true ? <Box>2초 후 박스 사라짐.</Box> : null}
             <div className="row">
                 <div className="col-md-6">
                     <img
-                        src="https://codingapple1.github.io/shop/shoes1.jpg"
+                        src={`https://codingapple1.github.io/shop/shoes${
+                            imageIndex + 1
+                        }.jpg`}
                         width="100%"
                     />
                 </div>

@@ -1,8 +1,17 @@
 /* eslint-disable */
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Navbar, Container, Nav, Col, Row } from "react-bootstrap";
+import {
+    Button,
+    Navbar,
+    Container,
+    Nav,
+    Col,
+    Row,
+    Card,
+    ListGroup,
+} from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
 import Detail from "./routes/detail.js";
@@ -14,6 +23,10 @@ import Cart from "./routes/cart.js";
 export let Context1 = createContext();
 
 function App() {
+    useEffect(() => {
+        localStorage.setItem("watched", JSON.stringify([]));
+    }, []);
+
     let navigate = useNavigate();
     let [shoes, setShoes] = useState(data);
     let [count, setCount] = useState(0);
@@ -57,7 +70,9 @@ function App() {
                     path="/"
                     element={
                         <>
-                            <div className="main-bg"></div>
+                            <div className="main-bg">
+                                <Seen></Seen>
+                            </div>
                             <Container>
                                 <Row>
                                     <ItemBox shoes={shoes}></ItemBox>
@@ -168,5 +183,15 @@ function ItemBox(props) {
 
 function Loading() {
     return <p>로딩중입니다..</p>;
+}
+
+function Seen() {
+    return (
+        <Card style={{ width: "18rem" }} className="seen">
+            <ListGroup variant="flush">
+                <ListGroup.Item>Cras justo odio</ListGroup.Item>
+            </ListGroup>
+        </Card>
+    );
 }
 export default App;
