@@ -20,6 +20,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
 import Cart from "./routes/cart.js";
 import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 
 export let Context1 = createContext();
 
@@ -33,15 +34,19 @@ function App() {
             localStorage.setItem("watched", JSON.stringify([]));
         }
     }, []);
-    // useEffect(() => {
-    //     localStorage.setItem("watched", JSON.stringify([]));
-    // }, []);
 
     let navigate = useNavigate();
     let [shoes, setShoes] = useState(data);
     let [count, setCount] = useState(0);
     let [alert, setAlert] = useState(false);
     let [재고] = useState([10, 11, 12]);
+
+    let result = useQuery(["작명"], () => {
+        return axios
+            .get("https://codingapple1.github.io/userdata.json")
+            .then((a) => a.data);
+    });
+
     return (
         <div className="App">
             <Navbar bg="dark" data-bs-theme="dark">
@@ -64,13 +69,14 @@ function App() {
                         </Nav.Link>
                         <Nav.Link
                             onClick={() => {
-                                {
-                                    navigate("/cart");
-                                }
+                                navigate("/cart");
                             }}
                         >
                             Cart
                         </Nav.Link>
+                    </Nav>
+                    <Nav className="ms-auto server">
+                        {result.isLoading ? "로딩중" : result.data.name}
                     </Nav>
                 </Container>
             </Navbar>
@@ -91,7 +97,7 @@ function App() {
                             <button
                                 onClick={() => {
                                     setAlert(true);
-                                    if (count == 0) {
+                                    if (count === 0) {
                                         axios
                                             .get(
                                                 "https://codingapple1.github.io/shop/data2.json"
@@ -107,7 +113,7 @@ function App() {
                                                 setAlert(false);
                                                 console.log("실패");
                                             });
-                                    } else if (count == 1) {
+                                    } else if (count === 1) {
                                         axios
                                             .get(
                                                 "https://codingapple1.github.io/shop/data3.json"
@@ -131,7 +137,7 @@ function App() {
                             >
                                 버튼
                             </button>
-                            {alert == true ? <Loading></Loading> : null}
+                            {alert === true ? <Loading></Loading> : null}
                         </>
                     }
                 />
@@ -147,8 +153,6 @@ function App() {
 
                 <Route path="/cart" element={<Cart></Cart>} />
             </Routes>
-
-            {/* <div className="container"></div> */}
         </div>
     );
 }
@@ -162,20 +166,19 @@ function ItemBox(props) {
     ]);
     return props.shoes.map(function (a, i) {
         return (
-            <Col md={4}>
+            <Col md={4} key={i}>
                 <img
                     src={shoesImg[i]}
                     width="80%"
                     onClick={() => {
                         navigate(`/detail/${i}`);
                     }}
+                    alt={`Shoes ${i}`}
                 ></img>
                 <h4>{props.shoes[i].title}</h4>
                 <p>{props.shoes[i].content}</p>
                 <p>{props.shoes[i].price}원</p>
             </Col>
-            // <div className="col-md-4">
-            // </div>
         );
     });
 }
@@ -185,19 +188,15 @@ function Loading() {
 }
 
 function Seen() {
-    let state = useSelector((state) => {
-        return state;
-    });
+    let state = useSelector((state) => state);
     let watchedArray = JSON.parse(localStorage.getItem("watched"));
-    console.log(watchedArray[0]);
     return (
         <Card style={{ width: "18rem" }} className="seen">
             <ListGroup variant="flush">
                 {watchedArray.map((id, i) => {
-                    let item = state.cart.find((cartItem) => {
-                        cartItem.id === id;
-                    });
-                    console.log("hi", item);
+                    let item = state.cart.find(
+                        (cartItem) => cartItem.id === id
+                    );
                     if (item) {
                         return (
                             <ListGroup.Item key={i}>{item.name}</ListGroup.Item>
@@ -210,4 +209,5 @@ function Seen() {
         </Card>
     );
 }
+
 export default App;

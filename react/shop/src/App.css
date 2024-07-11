@@ -6,6 +6,9 @@
   transition: opacity 0.5s;
 }
 
+.server {
+  color: white;
+}
 .seen {
   position: absolute;
   right: 20px;
