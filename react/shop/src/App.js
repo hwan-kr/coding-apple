@@ -19,13 +19,23 @@ import Event from "./routes/event.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
 import Cart from "./routes/cart.js";
+import { useSelector } from "react-redux";
 
 export let Context1 = createContext();
 
 function App() {
     useEffect(() => {
-        localStorage.setItem("watched", JSON.stringify([]));
+        // 로컬스토리지에 'watched' 키가 있는지 확인
+        const watched = localStorage.getItem("watched");
+
+        // 'watched' 키가 없으면 배열을 초기화
+        if (!watched) {
+            localStorage.setItem("watched", JSON.stringify([]));
+        }
     }, []);
+    // useEffect(() => {
+    //     localStorage.setItem("watched", JSON.stringify([]));
+    // }, []);
 
     let navigate = useNavigate();
     let [shoes, setShoes] = useState(data);
@@ -136,17 +146,6 @@ function App() {
                 <Route />
 
                 <Route path="/cart" element={<Cart></Cart>} />
-
-                <Route path="/event" element={<Event></Event>}>
-                    <Route
-                        path="one"
-                        element={<p>첫 주문시 양배추즙 서비스</p>}
-                    ></Route>
-                    <Route
-                        path="two"
-                        element={<p>생일 기념쿠폰 받기</p>}
-                    ></Route>
-                </Route>
             </Routes>
 
             {/* <div className="container"></div> */}
@@ -186,10 +185,27 @@ function Loading() {
 }
 
 function Seen() {
+    let state = useSelector((state) => {
+        return state;
+    });
+    let watchedArray = JSON.parse(localStorage.getItem("watched"));
+    console.log(watchedArray[0]);
     return (
         <Card style={{ width: "18rem" }} className="seen">
             <ListGroup variant="flush">
-                <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                {watchedArray.map((id, i) => {
+                    let item = state.cart.find((cartItem) => {
+                        cartItem.id === id;
+                    });
+                    console.log("hi", item);
+                    if (item) {
+                        return (
+                            <ListGroup.Item key={i}>{item.name}</ListGroup.Item>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
             </ListGroup>
         </Card>
     );
