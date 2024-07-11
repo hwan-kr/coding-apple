@@ -13,15 +13,26 @@ let cart = createSlice({
             state[index].count++;
         },
         cartUpdate(state, action) {
-            state.push({
-                id: action.payload.id,
-                name: action.payload.title,
-                count: 1,
-            });
+            let index = state.findIndex(
+                (item) => item.id === action.payload.id
+            );
+            if (state.some((item) => item.id === action.payload.id) == true) {
+                state[index].count++;
+            } else {
+                state.push({
+                    id: action.payload.id,
+                    name: action.payload.title,
+                    count: 1,
+                });
+            }
+        },
+        removeCart(state, action) {
+            let index = state.findIndex((item) => item.id === action.payload);
+            state.splice(index, 1);
         },
     },
 });
-export let { countUp, cartUpdate } = cart.actions;
+export let { countUp, cartUpdate, removeCart } = cart.actions;
 
 export default configureStore({
     reducer: {
