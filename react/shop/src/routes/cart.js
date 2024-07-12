@@ -1,12 +1,21 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { countUp, removeCart } from "../store.js";
+import { memo, useMemo, useState } from "react";
 
 function Cart() {
     let state = useSelector((state) => state);
     let dispatch = useDispatch();
+    let [count, setCount] = useState(0);
     return (
         <div>
+            <button
+                onClick={() => {
+                    setCount(count + 1);
+                }}
+            >
+                +
+            </button>
             <Table>
                 <thead>
                     <tr>
