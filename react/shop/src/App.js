@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, lazy, Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
     Button,
@@ -14,11 +14,10 @@ import {
 } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
-import Detail from "./routes/detail.js";
-import Event from "./routes/event.js";
+const Detail = lazy(() => import("./routes/detail.js"));
+const Cart = lazy(() => import("./routes/cart.js"));
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
-import Cart from "./routes/cart.js";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 
@@ -80,79 +79,85 @@ function App() {
                     </Nav>
                 </Container>
             </Navbar>
+            <Suspense fallback={<div>로딩중</div>}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                <div className="main-bg">
+                                    <Seen></Seen>
+                                </div>
+                                <Container>
+                                    <Row>
+                                        <ItemBox
+                                            shoes={shoes}
+                                            재고={재고}
+                                        ></ItemBox>
+                                    </Row>
+                                </Container>
+                                <button
+                                    onClick={() => {
+                                        setAlert(true);
+                                        if (count === 0) {
+                                            axios
+                                                .get(
+                                                    "https://codingapple1.github.io/shop/data2.json"
+                                                )
+                                                .then((result) => {
+                                                    let combinedArray =
+                                                        shoes.concat(
+                                                            result.data
+                                                        );
+                                                    setShoes(combinedArray);
+                                                    setCount(1);
+                                                    setAlert(false);
+                                                })
+                                                .catch(() => {
+                                                    setAlert(false);
+                                                    console.log("실패");
+                                                });
+                                        } else if (count === 1) {
+                                            axios
+                                                .get(
+                                                    "https://codingapple1.github.io/shop/data3.json"
+                                                )
+                                                .then((result) => {
+                                                    let combinedArray =
+                                                        shoes.concat(
+                                                            result.data
+                                                        );
+                                                    setShoes(combinedArray);
+                                                    setCount(2);
+                                                    setAlert(false);
+                                                })
+                                                .catch(() => {
+                                                    console.log("실패");
+                                                    setAlert(false);
+                                                });
+                                        } else {
+                                            console.log(
+                                                "더 이상 상품이 없습니다"
+                                            );
+                                            setAlert(false);
+                                        }
+                                    }}
+                                >
+                                    버튼
+                                </button>
+                                {alert === true ? <Loading></Loading> : null}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/detail/:id"
+                        element={<Detail shoes={shoes}></Detail>}
+                    />
+                    <Route />
 
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <>
-                            <div className="main-bg">
-                                <Seen></Seen>
-                            </div>
-                            <Container>
-                                <Row>
-                                    <ItemBox shoes={shoes}></ItemBox>
-                                </Row>
-                            </Container>
-                            <button
-                                onClick={() => {
-                                    setAlert(true);
-                                    if (count === 0) {
-                                        axios
-                                            .get(
-                                                "https://codingapple1.github.io/shop/data2.json"
-                                            )
-                                            .then((result) => {
-                                                let combinedArray =
-                                                    shoes.concat(result.data);
-                                                setShoes(combinedArray);
-                                                setCount(1);
-                                                setAlert(false);
-                                            })
-                                            .catch(() => {
-                                                setAlert(false);
-                                                console.log("실패");
-                                            });
-                                    } else if (count === 1) {
-                                        axios
-                                            .get(
-                                                "https://codingapple1.github.io/shop/data3.json"
-                                            )
-                                            .then((result) => {
-                                                let combinedArray =
-                                                    shoes.concat(result.data);
-                                                setShoes(combinedArray);
-                                                setCount(2);
-                                                setAlert(false);
-                                            })
-                                            .catch(() => {
-                                                console.log("실패");
-                                                setAlert(false);
-                                            });
-                                    } else {
-                                        console.log("더 이상 상품이 없습니다");
-                                        setAlert(false);
-                                    }
-                                }}
-                            >
-                                버튼
-                            </button>
-                            {alert === true ? <Loading></Loading> : null}
-                        </>
-                    }
-                />
-                <Route
-                    path="/detail/:id"
-                    element={
-                        <Context1.Provider value={{ 재고, shoes }}>
-                            <Detail shoes={shoes}></Detail>
-                        </Context1.Provider>
-                    }
-                />
-                <Route />
-
-                <Route path="/cart" element={<Cart></Cart>} />
-            </Routes>
+                    <Route path="/cart" element={<Cart></Cart>} />
+                </Routes>
+            </Suspense>
         </div>
     );
 }

@@ -15,7 +15,6 @@ let Box = styled.div`
 function Detail(props) {
     let state = useSelector((state) => state);
     let dispatch = useDispatch();
-    let { 재고 } = useContext(Context1);
 
     let { id } = useParams();
     let imageIndex = parseInt(id, 10);
@@ -136,7 +135,6 @@ function TabContent({ tab }) {
     //     return <div>내용2</div>;
     // }
     let [fade, setFade] = useState("");
-    let { 재고 } = useContext(Context1);
     useEffect(() => {
         let a = setTimeout(() => {
             setFade("end");
