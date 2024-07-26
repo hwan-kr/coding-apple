@@ -17,6 +17,7 @@ body {
   width: 200px;
   background: white;
   color: black;
+  border-radius: 4px;
 }
 
 .navbar {
@@ -26,4 +27,16 @@ body {
 .navbar a {
   margin-right: 10px;
   text-decoration: none;
+}
+
+.food-img {
+  width: 100%;
+  height: auto;
+}
+.cart-item {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid grey;
+  line-height: 0px;
 }

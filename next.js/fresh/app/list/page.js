@@ -1,5 +1,3 @@
-import "../globals.css";
-
 export default function List() {
     let 상품 = ["Tomatoes", "Pasta", "Coconut"];
 
@@ -17,7 +15,8 @@ export default function List() {
             </div> */}
             {상품.map((a, i) => {
                 return (
-                    <div className="food">
+                    <div className="food" key={i}>
+                        <img src={`/food${i}.png`} className="food-img"></img>
                         <h4>{a} 40$</h4>
                     </div>
                 );
