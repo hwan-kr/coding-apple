@@ -11,9 +11,12 @@ export default async function List() {
                 {result.map((a, i) => {
                     return (
                         <>
-                            <div className="list-item">
+                            <div className="list-item" key={i}>
                                 <h4>{a.item}</h4>
                                 <p>{a.content}</p>
+                                <a href={`/detail/${a._id}`}>
+                                    상세 페이지 이동
+                                </a>
                             </div>
                         </>
                     );
