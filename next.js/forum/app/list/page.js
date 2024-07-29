@@ -1,4 +1,6 @@
 import { connectDB } from "@/util/database";
+import Link from "next/link";
+import DetailLink from "./DetailLink";
 
 export default async function List() {
     const db = (await connectDB).db("forum");
@@ -12,11 +14,14 @@ export default async function List() {
                     return (
                         <>
                             <div className="list-item" key={i}>
-                                <h4>{a.item}</h4>
+                                <Link
+                                    prefetch={false}
+                                    href={`/detail/${a._id}`}
+                                >
+                                    <p>{a.title}</p>
+                                </Link>
+                                <DetailLink></DetailLink>
                                 <p>{a.content}</p>
-                                <a href={`/detail/${a._id}`}>
-                                    상세 페이지 이동
-                                </a>
                             </div>
                         </>
                     );
