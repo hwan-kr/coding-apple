@@ -1,6 +1,3 @@
-const url =
-    "mongodb+srv://fabronjeon:qkqhws123!@cluster0.xlnpotz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 export default function Write() {
     return (
         <>
