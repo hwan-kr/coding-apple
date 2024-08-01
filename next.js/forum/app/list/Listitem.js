@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import DetailLink from "./DetailLink";
-import { useEffect } from "react";
 
 export default function ListItem({ result }) {
     return (
@@ -21,9 +20,16 @@ export default function ListItem({ result }) {
                                 <DetailLink></DetailLink>
                                 <span
                                     onClick={() => {
-                                        fetch("/api/test", {
-                                            method: "DELETE",
-                                        }).then(() => {});
+                                        fetch(`/api/post/delete`, {
+                                            method: "POST",
+                                            body: a._id,
+                                        })
+                                            .then((r) => {
+                                                return r.json();
+                                            })
+                                            .then((r) => {
+                                                console.log(r);
+                                            });
                                     }}
                                 >
                                     삭제
