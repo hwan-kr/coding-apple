@@ -19,7 +19,7 @@ export default function ListItem({ result }) {
                                 <Link href={`/edit/${a._id}`}>수정</Link>
                                 <DetailLink></DetailLink>
                                 <span
-                                    onClick={() => {
+                                    onClick={(e) => {
                                         fetch(`/api/post/delete`, {
                                             method: "POST",
                                             body: a._id,
@@ -27,8 +27,12 @@ export default function ListItem({ result }) {
                                             .then((r) => {
                                                 return r.json();
                                             })
-                                            .then((r) => {
-                                                console.log(r);
+                                            .then(() => {
+                                                e.target.parentElement.style.opacity = 0;
+                                                setTimeout(() => {
+                                                    e.target.parentElement.style.display =
+                                                        "none";
+                                                }, 1000);
                                             });
                                     }}
                                 >
