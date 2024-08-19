@@ -3,7 +3,6 @@ import { connectDB } from "@/util/database";
 export default async function List() {
     const db = (await connectDB).db("forum2");
     let result = await db.collection("post").find().toArray();
-    console.log(result);
 
     return (
         <div className="list-bg">
@@ -12,6 +11,7 @@ export default async function List() {
                     <>
                         <div className="list-item" key={i}>
                             <h4>{a.title}</h4>
+                            <a href={`/detail/${a._id}`}>{a.title}</a>
                             <p>{a.content}</p>
                         </div>
                     </>
