@@ -5,15 +5,16 @@ import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(요청, 응답) {
     if (요청.method == "DELETE") {
-        console.log(요청.body);
         let session = await getServerSession(요청, 응답, authOptions);
-
+        console.log(session);
         const db = (await connectDB).db("forum2");
         let result = await db
             .collection("post")
             .findOne({ _id: new ObjectId(요청.body) });
-
-        if (result.author == session.user.email) {
+        if (
+            result.author == session.user.email ||
+            session.user.role == "admin"
+        ) {
             await db
                 .collection("post")
                 .deleteOne({ _id: new ObjectId(요청.body) });
