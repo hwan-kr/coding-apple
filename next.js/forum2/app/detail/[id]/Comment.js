@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function Comment() {
+export default function Comment({ parent }) {
     let [comment, setComment] = useState("");
 
     return (
@@ -16,10 +16,15 @@ export default function Comment() {
                 />
                 <button
                     onClick={() => {
-                        console.log(comment);
                         fetch("/api/comment", {
                             method: "POST",
-                            body: comment,
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                comment: comment,
+                                parent: parent,
+                            }),
                         });
                     }}
                 >
