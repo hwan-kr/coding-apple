@@ -24,7 +24,7 @@ export default function Comment({ parent }) {
                               return (
                                   <>
                                       <div key={i}>
-                                          <p>Author1 : {a.author}</p>
+                                          <p>Author : {a.author}</p>
                                           <p>Comment : {a.comment}</p>
                                       </div>
                                   </>
